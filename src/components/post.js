@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react'
+import styled from 'styled-components'
 
 const Item = styled.li`
   display: flex;
@@ -7,37 +7,31 @@ const Item = styled.li`
     margin-bottom: 0.5rem;
   }
   &:before {
-    content: "•";
-    color: #2A7F62;
+    content: '•';
+    color: #2a7f62;
     display: block;
     margin-top: 0.2rem;
     margin-right: 0.5rem;
   }
-`;
+`
 
 const Link = styled.a`
   font-size: 1.25rem;
   color: royalblue;
-  &:visited{
-    color: #56445D;
+  &:visited {
+    color: #56445d;
   }
-`;
+`
 
 class Post extends React.Component {
   state = {
-    post: {}
-  };
-  setStateAsync(state) {
-    return new Promise(resolve => {
-      this.setState(state, resolve);
-    });
+    post: {},
   }
-  async componentDidMount() {
-    const res = await fetch(
-      `https://hacker-news.firebaseio.com/v0/item/${this.props.id}.json`
-    );
-    const post = await res.json();
-    await this.setStateAsync({ post });
+
+  componentDidMount() {
+    fetch(`https://hacker-news.firebaseio.com/v0/item/${this.props.id}.json`)
+      .then(response => response.json())
+      .then(post => this.setState({ post }))
   }
 
   render() {
@@ -51,8 +45,8 @@ class Post extends React.Component {
           {this.state.post.title}
         </Link>
       </Item>
-    );
+    )
   }
 }
 
-export default Post;
+export default Post

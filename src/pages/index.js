@@ -22,21 +22,11 @@ class App extends React.Component {
   state = {
     topStories: [],
   }
-  setStateAsync(state) {
-    return new Promise(resolve => {
-      this.setState(state, resolve)
-    })
-  }
-  async componentDidMount() {
-    const res = await fetch(
-      'https://hacker-news.firebaseio.com/v0/topstories.json'
-    )
-    const topStories = await res.json()
-    const topStoryRes = await fetch(
-      'https://hacker-news.firebaseio.com/v0/item/17075489.json'
-    )
-    const topStory = await topStoryRes.json()
-    await this.setStateAsync({ topStories })
+  
+  componentDidMount() {
+    fetch('https://hacker-news.firebaseio.com/v0/topstories.json')
+      .then(response => response.json())
+      .then(topStories => this.setState({ topStories }))
   }
 
   render() {
